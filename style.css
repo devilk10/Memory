@@ -1,8 +1,14 @@
-table{
-  position: absolute;
-  /* align: center; */
-  top: 300px;
-  right: 600px;
+.table{
+  position: relative;
+  top: 200px;
+  left: 600px;
+  color:rgb(147, 98, 24);
+}
+
+.message{
+  position: relative;
+  top: 200px;
+  left: 600px;
   color:rgb(147, 98, 24);
 }
 
@@ -12,10 +18,10 @@ td{
   text-align: center;
   background-color:rgb(237, 234, 229);
 }
+
 .titleName{
   background-color:rgb(230, 212, 185);
   width: 100%;
-  /* height:100px; */
 }
 .gameName{
   font-family: Optima;
