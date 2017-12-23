@@ -33,9 +33,10 @@ Game.prototype.shuffle = function(list) {
 let game = new Game();
 let cellIdCounter = 1;
 let turn = 0;
-let prevClick;
+let prevClick='';
 let size = 4;
 let timeout = size*10*1000;
+let moves = [];
 
 const generateTable = function(size) {
   let table = document.getElementById('grid');
@@ -64,20 +65,29 @@ let openCell = function() {
 
 let isCorrect = function(cellId) {
   let number = game.list[+cellId - 1];
-  if (turn % 2 == 0) {
+  if (prevClick=='') {
     prevClick = number;
-    document.getElementById(cellId).innerText = number;
-    turn++;
+    updateOnCell(cellId,number);
   } else if (number == prevClick) {
+    prevClick='';
+    updateOnCell(cellId,number);
+  } else if(!moves.includes(cellId)&&prevClick!=''){
     document.getElementById(cellId).innerText = number;
-    turn++;
-  } else {
-    document.getElementById(cellId).innerText = number;
-    setTimeout(function() {
-      document.getElementById(cellId).innerText = '';
-    }, 100);
+    blink(cellId);
   }
 };
+
+let updateOnCell = function (cellId,number) {
+  document.getElementById(cellId).innerText = number;
+  turn++;
+  moves.push(cellId);
+}
+
+let blink = function (cellId) {
+  setTimeout(function() {
+    document.getElementById(cellId).innerText = '';
+  }, 100);
+}
 
 let showContent = function (list) {
   for (var i = 1; i < list.length+1; i++) {
