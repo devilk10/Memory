@@ -48,7 +48,7 @@ const generateTable = function(size) {
   return table;
 };
 
-let generateRows = function (table) {
+let generateRows = function(table) {
   let row = document.createElement('tr');
   for (let colCounter = 0; colCounter < size; colCounter++) {
     let cell = document.createElement('td');
@@ -60,9 +60,10 @@ let generateRows = function (table) {
 
 let openCell = function() {
   showContent(game.list);
-  setTimer();
-  let cells = document.getElementById("grid");
-  cells.addEventListener('click', reactOnClick);
+  setTimeout(function() {
+    let cells = document.getElementById("grid");
+    cells.addEventListener('click', reactOnClick);
+  }, size * 1000);
 };
 
 let reactOnClick = function() {
@@ -88,25 +89,25 @@ let startTimer = function() {
 };
 
 let gameOverAction = function() {
-  document.getElementById('timerBlock').style.visibility = 'hidden';
   let cells = document.getElementById("grid");
-  cells.removeEventListener('click',reactOnClick);
+  cells.removeEventListener('click', reactOnClick);
+  document.getElementById('restart').style.visibility='visible';
   showMessage();
 }
 
-let showMessage = function () {
+let showMessage = function() {
   if (moves.length == size * size) {
-    document.getElementById("WinningMessage").innerHTML = "You won!";
+    document.getElementById("timerBlock").innerHTML = "You won!";
     return;
   }
-  document.getElementById("WinningMessage").innerHTML = "You Loose!";
+  document.getElementById("timerBlock").innerHTML = "You Loose!";
 };
 
 let isCorrect = function(cellId) {
   let number = game.list[+cellId - 1];
-  if (prevClick == '') {
-    registerNumber(number,cellId);
-  } else if (number == prevClick && prevPos!=cellId) {
+  if (prevClick == '' && !moves.includes(cellId)) {
+    registerNumber(number, cellId);
+  } else if (number == prevClick && prevPos != cellId) {
     prevClick = '';
     updateOnCell(cellId, number);
   } else if (!moves.includes(cellId) && prevClick != '') {
@@ -115,7 +116,7 @@ let isCorrect = function(cellId) {
   }
 };
 
-let registerNumber = function (number,cellId) {
+let registerNumber = function(number, cellId) {
   prevClick = number;
   prevPos = cellId;
   updateOnCell(cellId, number);
@@ -148,14 +149,21 @@ let resetTable = function(list) {
   }
 };
 
-const start = function() {
-  game.setTable(size * size);
-  generateTable(size);
-  openCell();
+let hideStartButton = function () {
+  document.getElementById('start').style.visibility='hidden';
 };
 
-window.onload = start;
+let refreshPage = function () {
+  window.location.reload();
+};
 
+const start = function() {
+  hideStartButton();
+  game.setTable(size * size);
+  generateTable(size);
+  setTimer();
+  openCell();
+};
 
 // let start= new NumberFinder(5)
 // console.log(start.generateTable());

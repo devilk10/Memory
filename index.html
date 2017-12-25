@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <script src="generateTiles.js"></script>
-  <link rel = "stylesheet" href = "style.css">
+  <script src="js/generateTiles.js"></script>
+  <link rel="stylesheet" href="css/style.css">
   <meta charset="utf-8">
   <title></title>
 </head>
+
 <body>
-  <div class="titleName">
-    <h1 class="gameName">MEMORY</h1>
-  </div>
-  <hr>
-  <div class="table">
-    <table id="grid" border=4>
-      <h1 id="timerBlock">00</h1>
-    </table>
-  </div>
-  <div class="message">
-    <h1 id="WinningMessage"></h1>
+  <div class="parent">
+    <div class="titleName">
+      <h1 class="gameName">MEMORY</h1>
+      <hr>
+    </div>
+    <div class="grid">
+      <div class="leftBox"></div>
+      <div class="middleBox">
+        <div class="emptyBox"></div>
+        <div class="gameBoard">
+          <table id="grid" ></table>
+        </div>
+        <div class="controlBox">
+          <img id="restart" src="images/restart.png" onclick="refreshPage();">
+          <img id="start" src="images/start.png" onclick="start()">
+        </div>
+      </div>
+      <div class="rightBox">
+        <div class="rightTopEmptyBox"></div>
+        <div class="message">
+          <h1 id="timerBlock">00</h1>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 
